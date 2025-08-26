@@ -1,0 +1,156 @@
+# Address Validator++ - Cline Rules
+
+## Project Intelligence & Patterns
+
+### Core Development Philosophy
+This project follows a "validation-first" approach where address accuracy is prioritized over checkout speed. The philosophy is:
+- **Prevention over Correction:** Stop invalid addresses before they become delivery problems
+- **Transparency over Secrecy:** Clear visual feedback helps customers trust the process
+- **Performance with Prudence:** Caching and optimization without sacrificing accuracy
+- **Merchant Empowerment:** Give merchants control and visibility into validation processes
+
+### Technical Patterns & Conventions
+
+#### Validation Pipeline Architecture
+- **Multi-stage Validation:** Always follow the 4-stage pipeline (Syntax → Cache → Google Maps → USPS/UPS)
+- **Graceful Degradation:** Each validation stage should work independently if previous stages fail
+- **Confidence Scoring:** Use "high/medium/low" confidence levels for validation results
+- **Cache-First Strategy:** Always check cache before making external API calls
+
+#### Error Handling Standards
+- **User-Friendly Messages:** Never expose technical error details to customers
+- **Detailed Logging:** Log full error details with context for debugging
+- **Retry Logic:** Implement exponential backoff for external API failures
+- **Fallback Responses:** Always have a graceful fallback for critical failures
+
+#### Performance Optimization
+- **Caching TTL:** 30-day TTL for validated addresses, 1-hour for failed validations
+- **Batch Processing:** Group related validation requests when possible
+- **Asynchronous Operations:** Use async/await for all external API calls
+- **Memory Efficiency:** Reuse validation objects and avoid memory leaks
+
+### API Integration Patterns
+
+#### Google Maps Integration
+- **API Key Management:** Use environment variables, never hardcode keys
+- **Geocoding Strategy:** Use component-based geocoding for accuracy
+- **Map Display:** Only show maps for high-confidence validations
+- **Cost Control:** Implement strict rate limiting and monitoring
+
+#### USPS/UPS Integration
+- **Authoritative Source:** Treat USPS/UPS as the final validation authority
+- **DPV Requirements:** Always check Delivery Point Validation for US addresses
+- **Error Classification:** Distinguish between temporary and permanent API errors
+- **Data Sanitization:** Clean and standardize address data before API calls
+
+### Shopify Extension Patterns
+
+#### Checkout UI Extension Guidelines
+- **Minimal UI Impact:** Keep validation feedback non-intrusive
+- **Real-time Validation:** Validate as users type with 500ms debounce
+- **Visual Confirmation:** Use Google Maps pins for high-confidence addresses
+- **Error Prevention:** Guide users toward valid address formats
+
+#### Admin Panel Integration
+- **Polaris Components:** Use Shopify's Polaris design system consistently
+- **Data Visualization:** Charts and graphs for validation metrics
+- **Configuration Simplicity:** Minimal settings with sensible defaults
+- **Real-time Updates:** Live dashboard updates for active merchants
+
+### Security & Compliance
+
+#### Data Protection Standards
+- **PII Handling:** Encrypt customer address data at rest
+- **Tokenization:** Replace sensitive data in logs with tokens
+- **Access Control:** Role-based permissions for admin functions
+- **Audit Trail:** Log all validation and admin activities
+
+#### API Security Measures
+- **Rate Limiting:** Per-merchant rate limits to prevent abuse
+- **Input Sanitization:** Validate and sanitize all API inputs
+- **Authentication:** Shopify OAuth for admin access
+- **Authorization:** Scope-based API access control
+
+### Testing & Quality Assurance
+
+#### Testing Strategy
+- **Unit Tests:** Test each validation stage independently
+- **Integration Tests:** Test full validation pipeline flow
+- **Edge Cases:** Test invalid, incomplete, and malformed addresses
+- **Performance Tests:** Test under high-concurrency scenarios
+
+#### Quality Metrics
+- **Accuracy Target:** 99%+ validation accuracy for US addresses
+- **Performance Target:** < 500ms for cached validations, < 1500ms for API calls
+- **Uptime Target:** 99.9% service availability
+- **Cache Hit Rate:** 80%+ for frequently validated addresses
+
+### Development Workflow
+
+#### Code Review Standards
+- **Pipeline Integrity:** Ensure validation pipeline logic is sound
+- **Error Handling:** Verify comprehensive error handling
+- **Performance Impact:** Check for potential performance bottlenecks
+- **Security Compliance:** Validate security measures implementation
+
+#### Deployment Practices
+- **Feature Flags:** Use flags for new validation features
+- **Rollback Plans:** Quick rollback capability for failed deployments
+- **Monitoring Setup:** Alerts for performance degradation
+- **Gradual Rollout:** Phase deployment to high-volume merchants first
+
+### Merchant Experience Optimization
+
+#### Time-to-Value Focus
+- **Quick Setup:** Minimal configuration required for basic functionality
+- **Immediate Benefits:** Merchants should see validation results immediately
+- **Clear ROI:** Dashboard showing prevented delivery failures
+- **Simple Pricing:** Transparent, volume-based pricing model
+
+#### User Interface Principles
+- **Intuitive Design:** Merchants should understand the system without training
+- **Actionable Insights:** Provide clear next steps for improvement
+- **Mobile Responsiveness:** Admin panel works well on mobile devices
+- **Accessibility:** WCAG 2.1 AA compliance for all interfaces
+
+### Future Scalability Considerations
+
+#### International Expansion
+- **Multi-language Support:** Plan for localization from the start
+- **Regional Validation:** Different validation rules for different countries
+- **Currency Handling:** Support for different pricing models
+- **Compliance Variations:** GDPR, CCPA, and other regional requirements
+
+#### Advanced Features Roadmap
+- **AI-Powered Suggestions:** Machine learning for address corrections
+- **Fraud Detection:** Address validation as part of broader fraud prevention
+- **Carrier Integration:** Direct integration with shipping carriers
+- **B2B Features:** Advanced address management for business customers
+
+### Cost Optimization Strategies
+
+#### API Cost Management
+- **Smart Caching:** Aggressive caching to minimize external API calls
+- **Validation Batching:** Group similar validation requests
+- **Usage Monitoring:** Real-time tracking of API consumption
+- **Cost Alerts:** Notifications when API costs exceed thresholds
+
+#### Infrastructure Efficiency
+- **Serverless Architecture:** Use serverless functions for validation processing
+- **Database Optimization:** Efficient queries and indexing strategies
+- **CDN Integration:** Cache static assets and API responses
+- **Resource Scaling:** Auto-scaling based on demand patterns
+
+### Knowledge Capture & Documentation
+
+#### Learning Documentation
+- **Pattern Recognition:** Document successful implementation patterns
+- **Problem Solutions:** Capture solutions to common technical challenges
+- **Merchant Feedback:** Record merchant pain points and feature requests
+- **Performance Insights:** Track optimization discoveries and results
+
+#### Continuous Improvement
+- **Regular Reviews:** Monthly assessment of system performance
+- **Merchant Surveys:** Quarterly feedback collection from users
+- **Competitive Analysis:** Monitor competing solutions and market trends
+- **Technology Updates:** Stay current with Shopify, Google Maps, and postal API changes
