@@ -36,10 +36,17 @@ Merchants lose significant revenue and customer satisfaction due to failed deliv
 
 ## Key Constraints
 1. **Integration Method:** Must use Shopify Checkout UI Extension (Checkout Extensibility, not Script Editor)
-2. **Development Timeline:** MVP within 2–3 weeks
+2. **Development Timeline:** MVP within 2-3 weeks
 3. **Cost Control:** Implement caching layer for Google Maps API, only call on uncertainty
 4. **Validation Authority:** Use USPS/UPS DPV API for authoritative validation
 5. **User Experience:** No checkout friction - validation must be seamless
+
+## Current Status
+- ✅ Project foundation established (Shopify Remix template)
+- ✅ Basic project structure and configuration
+- ⚠️ Core validation logic not yet implemented
+- ⚠️ External API integrations pending
+- ⚠️ Checkout UI extension needs implementation
 
 ## Non-Goals (Future Scope)
 - International address validation (post-MVP)
