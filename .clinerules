@@ -47,9 +47,18 @@ This project follows a "validation-first" approach where address accuracy is pri
 
 #### Checkout UI Extension Guidelines
 - **Minimal UI Impact:** Keep validation feedback non-intrusive
-- **Real-time Validation:** Validate as users type with 500ms debounce
+- **Real-time Validation:** Validate as users type with 700ms debounce
 - **Visual Confirmation:** Use Google Maps pins for high-confidence addresses
 - **Error Prevention:** Guide users toward valid address formats
+- **Secure Token Flow:** Use getSessionToken() for all backend API calls
+- **Multi-Response Handling:** Handle CORRECTED, BLOCK_MISSING_UNIT, NEED_CONFIRM_ROOFTOP responses
+
+#### Extension Implementation Standards
+- **TypeScript React:** Use TypeScript with React hooks for extension development
+- **Debounced Validation:** Implement 700ms debounce to prevent backend spam
+- **Session Token Auth:** Always use short-lived session tokens for API authentication
+- **Extension Point Specificity:** Target specific extension points for precise UI placement
+- **Build Directory Structure:** Use /build directories for extension artifacts (gitignored)
 
 #### Admin Panel Integration
 - **Polaris Components:** Use Shopify's Polaris design system consistently
